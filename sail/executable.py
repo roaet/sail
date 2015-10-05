@@ -65,29 +65,19 @@ def run_sail(ctx, auth_config_file, net_config_file, verbose):
 
     ctx.session = session.Session()
 
-    if False:
-        with ctx.session.setUp():
-            pass
-            """
-            net_info =  {"network": {"name": "derp"}}
+    """
+    Some defaults for giggles
+    net_info =  {"network": {"name": "derp"}}
 
-            subnet_info = {"subnet": {"name": "derp", "network_id": net_id,
-                                      "cidr": "192.168.0.0/24", "ip_version": 4}}
-            port_info = {"port": {"network_id": net_id}}
-            port_info = {"port": {"network_id": net_id}}
-            ip_info = {"ip_address": {"network_id": net_id, "version": 4,
-                                      "port_ids": [port_id1, port_id2]}}
-
-        with ctx.session.tearDown():
-            net_srv.delete_ip_addresses(ctx, ip_id)
-            net_srv.delete_port(ctx, port_id1)
-            net_srv.delete_port(ctx, port_id2)
-            net_srv.delete_subnet(ctx, subnet_id)
-            net_srv.delete_network(ctx, net_id)
-            """
-    else:
-        with ctx.session.setUp(auth_info, [net_srv]):
-            net.GetNetworks()()
-            create = net.CreateNetwork()()
-            net.DeleteNetwork(notify_success=[create])()
+    subnet_info = {"subnet": {"name": "derp", "network_id": net_id,
+                              "cidr": "192.168.0.0/24", "ip_version": 4}}
+    port_info = {"port": {"network_id": net_id}}
+    port_info = {"port": {"network_id": net_id}}
+    ip_info = {"ip_address": {"network_id": net_id, "version": 4,
+                              "port_ids": [port_id1, port_id2]}}
+    """
+    with ctx.session.setUp(auth_info, [net_srv]):
+        net.GetNetworks()()
+        create = net.CreateNetwork()()
+        net.DeleteNetwork(notify_success=[create])()
     ctx.exit(0)
