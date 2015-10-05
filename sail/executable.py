@@ -16,9 +16,9 @@
 import click
 import configobj
 
-import sail.services.network as net
+import sail.tasks.network as net
+from sail.services.network import NetworkService
 import sail.session as session
-import sail.task
 import sail.utils.auth as auth
 import sail.exceptions.common as exc
 
@@ -49,6 +49,7 @@ def _load_config(file):
 def run_sail(ctx, auth_config_file, net_config_file, verbose):
     if verbose:
         ctx.verbose = True
+    #TODO(roaet): push all the conf loading into the session
     conf = None
     if auth_config_file is not None:
         conf = _load_config(auth_config_file)
@@ -61,7 +62,7 @@ def run_sail(ctx, auth_config_file, net_config_file, verbose):
     conf = None
     if net_config_file is not None:
         conf = _load_config(net_config_file)
-    net_srv = net.Network(conf)
+    net_srv = NetworkService(conf)
 
     ctx.session = session.Session()
 
